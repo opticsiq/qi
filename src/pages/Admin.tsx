@@ -203,7 +203,7 @@ const Admin = () => {
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <div className="flex items-center justify-center mb-4">
-              <img src="/qi-logo.svg" alt="QI Cards" className="h-12 w-auto" />
+              <img src={`${import.meta.env.BASE_URL}qi-logo.svg`} alt="QI Cards" className="h-12 w-auto" />
             </div>
             <CardTitle className="text-2xl font-bold text-gray-900">لوحة تحكم الأدمن</CardTitle>
             <p className="text-gray-600">أدخل كلمة المرور للوصول</p>
@@ -261,7 +261,7 @@ const Admin = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-4 space-x-reverse">
-              <img src="/qi-logo.svg" alt="QI Cards" className="h-12 w-auto" />
+              <img src={`${import.meta.env.BASE_URL}qi-logo.svg`} alt="QI Cards" className="h-12 w-auto" />
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">لوحة تحكم الأدمن</h1>
                 <p className="text-gray-600">إدارة الصور المرفوعة</p>

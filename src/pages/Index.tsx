@@ -93,7 +93,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-3">
-              <img src="/qi-logo.svg" alt="QI Card Logo" className="w-10 h-10" />
+              <img src={`${import.meta.env.BASE_URL}qi-logo.svg`} alt="QI Card Logo" className="w-10 h-10" />
               <div>
                 <h1 className="text-2xl font-bold text-[#111]">QI Cards</h1>
                 <p className="text-sm text-[#222] opacity-90">نظام البطاقات الذكية</p>
@@ -160,7 +160,7 @@ const Index = () => {
           <div className="space-y-8">
             <div className="text-center">
               <h2 className="text-3xl font-bold text-gray-800 mb-2 flex items-center justify-center gap-3">
-                <img src="/qi-logo.svg" alt="QI Card Logo" className="w-8 h-8 inline-block" />
+                <img src={`${import.meta.env.BASE_URL}qi-logo.svg`} alt="QI Card Logo" className="w-8 h-8 inline-block" />
                 معاينة البطاقة
               </h2>
               <p className="text-gray-600">تأكد من وضوح جميع البيانات في الصور المرفوعة</p>
@@ -174,7 +174,7 @@ const Index = () => {
                   <div className="flex justify-between items-start">
                     <div className="text-white/80 text-sm font-medium">QI CARD</div>
                     <div className="w-12 h-8 bg-white rounded flex items-center justify-center">
-                      <img src="/qi-logo.svg" alt="QI Card Logo" className="w-6 h-6" />
+                      <img src={`${import.meta.env.BASE_URL}qi-logo.svg`} alt="QI Card Logo" className="w-6 h-6" />
                     </div>
                   </div>
                   <div className="text-white text-xl font-mono tracking-wider mb-6">
@@ -387,7 +387,7 @@ const Index = () => {
       <div className="bg-gray-900 py-8">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <img src="/qi-logo.svg" alt="QI Card Logo" className="w-8 h-8" />
+            <img src={`${import.meta.env.BASE_URL}qi-logo.svg`} alt="QI Card Logo" className="w-8 h-8" />
             <span className="font-bold text-white text-xl">QI Cards</span>
           </div>
           <p className="text-gray-300 mb-2">
