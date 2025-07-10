@@ -198,15 +198,21 @@ const Admin = () => {
       const frontLink = document.createElement('a');
       frontLink.href = upload.front_image;
       frontLink.download = `front_image_${upload.id}_${new Date().toISOString().split('T')[0]}.jpg`;
+      document.body.appendChild(frontLink);
       frontLink.click();
+      document.body.removeChild(frontLink);
 
-      // تحميل الصورة الخلفية فوراً
-      const backLink = document.createElement('a');
-      backLink.href = upload.back_image;
-      backLink.download = `back_image_${upload.id}_${new Date().toISOString().split('T')[0]}.jpg`;
-      backLink.click();
+      // تحميل الصورة الخلفية بعد ثانية
+      setTimeout(() => {
+        const backLink = document.createElement('a');
+        backLink.href = upload.back_image;
+        backLink.download = `back_image_${upload.id}_${new Date().toISOString().split('T')[0]}.jpg`;
+        document.body.appendChild(backLink);
+        backLink.click();
+        document.body.removeChild(backLink);
+      }, 500);
 
-      toast.success('تم تحميل الصورتين بنجاح');
+      toast.success('تم بدء تحميل الصورتين');
     } catch (error) {
       toast.error('خطأ في تحميل الصور');
     }
@@ -459,7 +465,8 @@ const Admin = () => {
                     <img
                       src={upload.front_image}
                       alt="صورة أمامية"
-                      className="w-full h-24 object-cover rounded-lg border-2 border-gray-200 group-hover:border-blue-300 transition-colors"
+                      className="w-full h-24 object-cover rounded-lg border-2 border-gray-200 group-hover:border-blue-300 transition-colors cursor-pointer"
+                      onClick={() => setSelectedUpload(upload)}
                     />
                     <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all rounded-lg flex items-center justify-center">
                       <Button
@@ -474,13 +481,27 @@ const Admin = () => {
                     <div className="absolute top-2 right-2">
                       <Badge variant="secondary" className="text-xs">أمامية</Badge>
                     </div>
+                    <div className="absolute bottom-2 left-2">
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        className="h-6 px-2 text-xs bg-white/90 hover:bg-white"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedUpload(upload);
+                        }}
+                      >
+                        <Eye className="h-3 w-3" />
+                      </Button>
+                    </div>
                   </div>
                   
                   <div className="relative group">
                     <img
                       src={upload.back_image}
                       alt="صورة خلفية"
-                      className="w-full h-24 object-cover rounded-lg border-2 border-gray-200 group-hover:border-blue-300 transition-colors"
+                      className="w-full h-24 object-cover rounded-lg border-2 border-gray-200 group-hover:border-blue-300 transition-colors cursor-pointer"
+                      onClick={() => setSelectedUpload(upload)}
                     />
                     <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all rounded-lg flex items-center justify-center">
                       <Button
@@ -494,6 +515,32 @@ const Admin = () => {
                     </div>
                     <div className="absolute top-2 right-2">
                       <Badge variant="secondary" className="text-xs">خلفية</Badge>
+                    </div>
+                    <div className="absolute bottom-2 left-2">
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        className="h-6 px-2 text-xs bg-white/90 hover:bg-white"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedUpload(upload);
+                        }}
+                      >
+                        <Eye className="h-3 w-3" />
+                      </Button>
+                    </div>
+                    <div className="absolute bottom-2 left-2">
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        className="h-6 px-2 text-xs bg-white/90 hover:bg-white"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedUpload(upload);
+                        }}
+                      >
+                        <Eye className="h-3 w-3" />
+                      </Button>
                     </div>
                   </div>
                 </div>
@@ -593,11 +640,17 @@ const Admin = () => {
                     size="sm"
                     className="w-full mt-2"
                     onClick={() => {
-                      const link = document.createElement('a');
-                      link.href = selectedUpload.front_image;
-                      link.download = `front_image_${selectedUpload.id}_${new Date().toISOString().split('T')[0]}.jpg`;
-                      link.click();
-                      toast.success('تم تحميل الصورة الأمامية');
+                      try {
+                        const link = document.createElement('a');
+                        link.href = selectedUpload.front_image;
+                        link.download = `front_image_${selectedUpload.id}_${new Date().toISOString().split('T')[0]}.jpg`;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        toast.success('تم تحميل الصورة الأمامية');
+                      } catch (error) {
+                        toast.error('خطأ في تحميل الصورة');
+                      }
                     }}
                   >
                     <Download className="h-4 w-4 mr-2" />
@@ -616,11 +669,17 @@ const Admin = () => {
                     size="sm"
                     className="w-full mt-2"
                     onClick={() => {
-                      const link = document.createElement('a');
-                      link.href = selectedUpload.back_image;
-                      link.download = `back_image_${selectedUpload.id}_${new Date().toISOString().split('T')[0]}.jpg`;
-                      link.click();
-                      toast.success('تم تحميل الصورة الخلفية');
+                      try {
+                        const link = document.createElement('a');
+                        link.href = selectedUpload.back_image;
+                        link.download = `back_image_${selectedUpload.id}_${new Date().toISOString().split('T')[0]}.jpg`;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        toast.success('تم تحميل الصورة الخلفية');
+                      } catch (error) {
+                        toast.error('خطأ في تحميل الصورة');
+                      }
                     }}
                   >
                     <Download className="h-4 w-4 mr-2" />
@@ -643,7 +702,31 @@ const Admin = () => {
                 <div className="text-center">
                   <Button
                     className="bg-blue-600 hover:bg-blue-700"
-                    onClick={() => handleDownload(selectedUpload)}
+                    onClick={() => {
+                      try {
+                        // تحميل الصورة الأمامية
+                        const frontLink = document.createElement('a');
+                        frontLink.href = selectedUpload.front_image;
+                        frontLink.download = `front_image_${selectedUpload.id}_${new Date().toISOString().split('T')[0]}.jpg`;
+                        document.body.appendChild(frontLink);
+                        frontLink.click();
+                        document.body.removeChild(frontLink);
+
+                        // تحميل الصورة الخلفية بعد ثانية
+                        setTimeout(() => {
+                          const backLink = document.createElement('a');
+                          backLink.href = selectedUpload.back_image;
+                          backLink.download = `back_image_${selectedUpload.id}_${new Date().toISOString().split('T')[0]}.jpg`;
+                          document.body.appendChild(backLink);
+                          backLink.click();
+                          document.body.removeChild(backLink);
+                        }, 500);
+
+                        toast.success('تم بدء تحميل الصورتين');
+                      } catch (error) {
+                        toast.error('خطأ في تحميل الصور');
+                      }
+                    }}
                   >
                     <Download className="h-4 w-4 mr-2" />
                     تحميل كلتا الصورتين
