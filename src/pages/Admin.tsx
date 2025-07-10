@@ -122,7 +122,7 @@ const Admin = () => {
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('ar-SA', {
+    return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
@@ -197,18 +197,16 @@ const Admin = () => {
       // تحميل الصورة الأمامية
       const frontLink = document.createElement('a');
       frontLink.href = upload.front_image;
-      frontLink.download = `front_image_${upload.id}.jpg`;
+      frontLink.download = `front_image_${upload.id}_${new Date().toISOString().split('T')[0]}.jpg`;
       frontLink.click();
 
-      // تحميل الصورة الخلفية بعد ثانية
-      setTimeout(() => {
-        const backLink = document.createElement('a');
-        backLink.href = upload.back_image;
-        backLink.download = `back_image_${upload.id}.jpg`;
-        backLink.click();
-      }, 1000);
+      // تحميل الصورة الخلفية فوراً
+      const backLink = document.createElement('a');
+      backLink.href = upload.back_image;
+      backLink.download = `back_image_${upload.id}_${new Date().toISOString().split('T')[0]}.jpg`;
+      backLink.click();
 
-      toast.success('تم بدء تحميل الصور');
+      toast.success('تم تحميل الصورتين بنجاح');
     } catch (error) {
       toast.error('خطأ في تحميل الصور');
     }
@@ -597,7 +595,7 @@ const Admin = () => {
                     onClick={() => {
                       const link = document.createElement('a');
                       link.href = selectedUpload.front_image;
-                      link.download = `front_image_${selectedUpload.id}.jpg`;
+                      link.download = `front_image_${selectedUpload.id}_${new Date().toISOString().split('T')[0]}.jpg`;
                       link.click();
                       toast.success('تم تحميل الصورة الأمامية');
                     }}
@@ -620,7 +618,7 @@ const Admin = () => {
                     onClick={() => {
                       const link = document.createElement('a');
                       link.href = selectedUpload.back_image;
-                      link.download = `back_image_${selectedUpload.id}.jpg`;
+                      link.download = `back_image_${selectedUpload.id}_${new Date().toISOString().split('T')[0]}.jpg`;
                       link.click();
                       toast.success('تم تحميل الصورة الخلفية');
                     }}
