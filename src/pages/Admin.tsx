@@ -192,6 +192,28 @@ const Admin = () => {
     }
   };
 
+  const handleDownload = (upload: UploadedImage) => {
+    try {
+      // تحميل الصورة الأمامية
+      const frontLink = document.createElement('a');
+      frontLink.href = upload.front_image;
+      frontLink.download = `front_image_${upload.id}.jpg`;
+      frontLink.click();
+
+      // تحميل الصورة الخلفية بعد ثانية
+      setTimeout(() => {
+        const backLink = document.createElement('a');
+        backLink.href = upload.back_image;
+        backLink.download = `back_image_${upload.id}.jpg`;
+        backLink.click();
+      }, 1000);
+
+      toast.success('تم بدء تحميل الصور');
+    } catch (error) {
+      toast.error('خطأ في تحميل الصور');
+    }
+  };
+
   const filteredUploads = uploads.filter(upload => 
     filterStatus === 'all' ? true : upload.status === filterStatus
   );
@@ -487,6 +509,7 @@ const Admin = () => {
                       variant="outline"
                       size="sm"
                       className="flex items-center space-x-2 space-x-reverse"
+                      onClick={() => handleDownload(upload)}
                     >
                       <Download className="h-4 w-4" />
                       <span>تحميل</span>
@@ -567,6 +590,21 @@ const Admin = () => {
                     alt="صورة أمامية"
                     className="w-full h-48 object-cover rounded-lg border"
                   />
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full mt-2"
+                    onClick={() => {
+                      const link = document.createElement('a');
+                      link.href = selectedUpload.front_image;
+                      link.download = `front_image_${selectedUpload.id}.jpg`;
+                      link.click();
+                      toast.success('تم تحميل الصورة الأمامية');
+                    }}
+                  >
+                    <Download className="h-4 w-4 mr-2" />
+                    تحميل الصورة الأمامية
+                  </Button>
                 </div>
                 <div>
                   <h4 className="font-medium text-gray-900 mb-2">الصورة الخلفية</h4>
@@ -575,11 +613,26 @@ const Admin = () => {
                     alt="صورة خلفية"
                     className="w-full h-48 object-cover rounded-lg border"
                   />
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full mt-2"
+                    onClick={() => {
+                      const link = document.createElement('a');
+                      link.href = selectedUpload.back_image;
+                      link.download = `back_image_${selectedUpload.id}.jpg`;
+                      link.click();
+                      toast.success('تم تحميل الصورة الخلفية');
+                    }}
+                  >
+                    <Download className="h-4 w-4 mr-2" />
+                    تحميل الصورة الخلفية
+                  </Button>
                 </div>
               </div>
               
               <div className="mt-6 pt-4 border-t">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm mb-4">
                   <div>
                     <p className="text-gray-600">تاريخ الرفع:</p>
                     <p className="font-medium">{formatDate(selectedUpload.created_at)}</p>
@@ -588,6 +641,15 @@ const Admin = () => {
                     <p className="text-gray-600">الحالة:</p>
                     <div className="mt-1">{getStatusBadge(selectedUpload.status)}</div>
                   </div>
+                </div>
+                <div className="text-center">
+                  <Button
+                    className="bg-blue-600 hover:bg-blue-700"
+                    onClick={() => handleDownload(selectedUpload)}
+                  >
+                    <Download className="h-4 w-4 mr-2" />
+                    تحميل كلتا الصورتين
+                  </Button>
                 </div>
               </div>
             </div>
